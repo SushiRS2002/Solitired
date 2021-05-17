@@ -15,8 +15,8 @@ import card.CardStacks;
 import card.Value;
 
 public class TablePile {
-	private Map<Table, CardStacks> tableMap = new HashMap<>();
-	private Set<Card> visible = new HashSet<>();
+	private final Map<Table, CardStacks> tableMap = new HashMap<>();
+	private final Set<Card> visible = new HashSet<>();
 
 	public TablePile() {
 		for (Table index : Table.values()) {
@@ -39,31 +39,31 @@ public class TablePile {
 		}
 	}
 
-	public boolean canMoveTo(Card card, Table table) {
-		assert card != null && table != null;
-		CardStacks pile = tableMap.get(table);
+	public boolean canMoveTo(Card card, Table index) {
+		assert card != null && index != null;
+		CardStacks pile = tableMap.get(index);
 		if (pile.isEmpty()) {
 			return card.getVALUE() == Value.KING;
 		} else {
-			return (card.getVALUE().ordinal() == pile.peek().getVALUE().ordinal() - 1);
+			return card.getVALUE().ordinal() == pile.peek().getVALUE().ordinal() - 1;
 		}
 	}
 
 	public boolean isBottomKing(Card card) {
 		assert card != null && contains(card);
-		return (card.getVALUE() == Value.KING) && (tableMap.get(getPile(card)).peek(0) == card);
+		return card.getVALUE() == Value.KING && tableMap.get(getPile(card)).peek(0) == card;
 	}
 
-	public CardStacks getPile(Table table) {
-		assert table != null;
-		return new CardStacks(tableMap.get(table));
+	public CardStacks getPile(Table index) {
+		assert index != null;
+		return new CardStacks(tableMap.get(index));
 	}
 
 	public Table getPile(Card card) {
 		assert contains(card);
-		for (Table table : Table.values()) {
-			if (contains(card, table)) {
-				return table;
+		for (Table pile : Table.values()) {
+			if (contains(card, pile)) {
+				return pile;
 			}
 		}
 		assert false;
@@ -72,43 +72,43 @@ public class TablePile {
 
 	public boolean revealsTop(Card card) {
 		assert card != null && contains(card);
-		Optional<Card> before = getPreviousCard(card);
-		if (!before.isPresent()) {
+		Optional<Card> previous = getPreviousCard(card);
+		if (!previous.isPresent()) {
 			return false;
 		}
-		return visible.contains(card) && !visible.contains(before.get());
+		return visible.contains(card) && !visible.contains(previous.get());
 	}
 
 	public Optional<Card> getPreviousCard(Card card) {
-		Optional<Card> before = Optional.empty();
+		Optional<Card> previous = Optional.empty();
 		for (Card c : tableMap.get(getPile(card))) {
 			if (c == card) {
-				return before;
+				return previous;
 			}
-			before = Optional.of(card);
+			previous = Optional.of(card);
 		}
 		return Optional.empty();
 	}
 
-	public void moveWithin(Card card, Table originTable, Table finalTable) {
-		assert card != null && originTable != null && finalTable != null;
-		assert contains(card, originTable);
+	public void moveWithin(Card card, Table prigin, Table destination) {
+		assert card != null && prigin != null && destination != null;
+		assert contains(card, prigin);
 		assert isVisible(card);
-		Stack<Card> temporary = new Stack<>();
-		Card c = tableMap.get(originTable).pop();
-		temporary.push(c);
+		Stack<Card> temp = new Stack<>();
+		Card c = tableMap.get(prigin).pop();
+		temp.push(card);
 		while (c != card) {
-			c = tableMap.get(originTable).pop();
-			temporary.push(c);
+			card = tableMap.get(prigin).pop();
+			temp.push(card);
 		}
-		while (!temporary.isEmpty()) {
-			tableMap.get(finalTable).push(temporary.pop());
+		while (!temp.isEmpty()) {
+			tableMap.get(destination).push(temp.pop());
 		}
 	}
 
-	public CardStacks getSequence(Card card, Table table) {
-		assert card != null && table != null;
-		CardStacks stack = tableMap.get(table);
+	public CardStacks getSequence(Card card, Table index) {
+		assert card != null && index != null;
+		CardStacks stack = tableMap.get(index);
 		List<Card> result = new ArrayList<>();
 		boolean hasSeen = false;
 		for (Card c : stack) {
@@ -116,7 +116,7 @@ public class TablePile {
 				hasSeen = true;
 			}
 			if (hasSeen) {
-				result.add(c);
+				result.add(card);
 			}
 		}
 		return new CardStacks(result);
@@ -162,8 +162,8 @@ public class TablePile {
 		if (!isVisible(card)) {
 			return false;
 		} else {
-			Optional<Card> olderCard = getPreviousCard(card);
-			return !olderCard.isPresent() || !isVisible(olderCard.get());
+			Optional<Card> previousCard = getPreviousCard(card);
+			return !previousCard.isPresent() || !isVisible(previousCard.get());
 		}
 	}
 

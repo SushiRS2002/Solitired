@@ -7,9 +7,9 @@ public class Transfer {
 	private static final String SEPARATOR = ";";
 	private Card[] cards;
 
-	public Transfer(String s) {
-		assert s != null && s.length() > 0;
-		String[] tokens = s.split(SEPARATOR);
+	public Transfer(String str) {
+		assert str != null && str.length() > 0;
+		String[] tokens = str.split(SEPARATOR);
 		cards = new Card[tokens.length];
 		for (int i = 0; i < tokens.length; i++) {
 			cards[i] = Card.get(tokens[i]);
@@ -17,9 +17,9 @@ public class Transfer {
 		assert cards.length > 0;
 	}
 
-	public static String serialize(CardStacks cards) {
+	public static String serialize(CardStacks stacks) {
 		String result = "";
-		for (Card card : cards) {
+		for (Card card : stacks) {
 			result += card.getIDString() + SEPARATOR;
 		}
 		if (result.length() > 0) {
@@ -31,7 +31,7 @@ public class Transfer {
 	public Card getTop() {
 		return cards[0];
 	}
-	
+
 	public int size() {
 		return cards.length;
 	}

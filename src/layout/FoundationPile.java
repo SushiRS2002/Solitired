@@ -8,53 +8,53 @@ import card.CardStacks;
 import card.Value;
 
 public class FoundationPile {
-	private Map<Foundation, CardStacks> piles = new HashMap<>();
+	private final Map<Foundation, CardStacks> foundMap = new HashMap<>();
 
 	public FoundationPile() {
 		initialize();
 	}
 
 	public int getTotalSize() {
-		int summary = 0;
-		for (CardStacks stack : piles.values()) {
-			summary += stack.size();
+		int sum = 0;
+		for (CardStacks stack : foundMap.values()) {
+			sum += stack.size();
 		}
-		return summary;
+		return sum;
 	}
 
 	public void initialize() {
 		for (Foundation index : Foundation.values()) {
-			piles.put(index, new CardStacks());
+			foundMap.put(index, new CardStacks());
 		}
 	}
 
-	public boolean isEmpty(Foundation index) {
-		assert index != null;
-		return piles.get(index).isEmpty();
+	public boolean isEmpty(Foundation location) {
+		assert location != null;
+		return foundMap.get(location).isEmpty();
 	}
 
-	public boolean canMoveTo(Card card, Foundation index) {
-		assert card != null && index != null;
-		if (isEmpty(index)) {
+	public boolean canMoveTo(Card card, Foundation location) {
+		assert card != null && location != null;
+		if (isEmpty(location)) {
 			return card.getVALUE() == Value.ACE;
 		} else {
-			return (card.getVALUE().ordinal() == peek(index).getVALUE().ordinal() + 1)
-					&& (card.getSUIT() == peek(index).getSUIT());
+			return card.getSUIT() == peek(location).getSUIT()
+					&& card.getVALUE().ordinal() == peek(location).getVALUE().ordinal() + 1;
 		}
 	}
 
-	public Card peek(Foundation index) {
-		assert index != null && !piles.get(index).isEmpty();
-		return piles.get(index).peek();
+	public Card peek(Foundation location) {
+		assert location != null && !foundMap.get(location).isEmpty();
+		return foundMap.get(location).peek();
 	}
 
-	public Card pop(Foundation index) {
-		assert index != null && !isEmpty(index);
-		return piles.get(index).pop();
+	public void push(Card card, Foundation location) {
+		assert card != null && location != null;
+		foundMap.get(location).push(card);
 	}
 
-	public void push(Card card, Foundation index) {
-		assert card != null && index != null;
-		piles.get(index).push(card);
+	public Card pop(Foundation location) {
+		assert location != null && !isEmpty(location);
+		return foundMap.get(location).pop();
 	}
 }

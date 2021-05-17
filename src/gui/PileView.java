@@ -21,7 +21,7 @@ import layout.Table;
 
 public class PileView extends StackPane implements GameModelListenable {
 	private static final int PADDING = 5;
-	private static final int Y_OFFSET = 25;
+	private static final int Y_OFFSET = 32;
 	private static final ClipboardContent CLIPBOARD_CONTENT = new ClipboardContent();
 	private Table index;
 
@@ -56,12 +56,10 @@ public class PileView extends StackPane implements GameModelListenable {
 			image.setTranslateY(Y_OFFSET * offset);
 			offset++;
 			getChildren().add(image);
-
 			setOnDragOver(createDragOverHandler(image, cardView));
 			setOnDragEntered(createDragEnteredHandler(image, cardView));
 			setOnDragExited(createDragExitedHandler(image, cardView));
 			setOnDragDropped(createDragDroppedHandler(image, cardView));
-
 			if (GameModel.instance().isVisibleInTablePile(cardView)) {
 				image.setOnDragDetected(createDragDetectedHandler(image, cardView));
 			}
@@ -70,61 +68,61 @@ public class PileView extends StackPane implements GameModelListenable {
 
 	public EventHandler<MouseEvent> createDragDetectedHandler(ImageView imageView, Card card) {
 		return new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent pMouseEvent) {
+			public void handle(MouseEvent me) {
 				Dragboard db = imageView.startDragAndDrop(TransferMode.ANY);
 				CLIPBOARD_CONTENT.putString(Transfer.serialize(GameModel.instance().getSubStack(card, index)));
 				db.setContent(CLIPBOARD_CONTENT);
-				pMouseEvent.consume();
+				me.consume();
 			}
 		};
 	}
 
 	public EventHandler<DragEvent> createDragOverHandler(ImageView imageView, Card card) {
 		return new EventHandler<DragEvent>() {
-			public void handle(DragEvent pEvent) {
-				if (pEvent.getGestureSource() != imageView && pEvent.getDragboard().hasString()) {
-					Transfer transfer = new Transfer(pEvent.getDragboard().getString());
+			public void handle(DragEvent de) {
+				if (de.getGestureSource() != imageView && de.getDragboard().hasString()) {
+					Transfer transfer = new Transfer(de.getDragboard().getString());
 					if (GameModel.instance().isLegalMove(transfer.getTop(), index)) {
-						pEvent.acceptTransferModes(TransferMode.MOVE);
+						de.acceptTransferModes(TransferMode.MOVE);
 					}
 				}
-				pEvent.consume();
+				de.consume();
 			}
 		};
 	}
 
 	public EventHandler<DragEvent> createDragEnteredHandler(ImageView imageView, Card card) {
 		return new EventHandler<DragEvent>() {
-			public void handle(DragEvent pEvent) {
-				Transfer transfer = new Transfer(pEvent.getDragboard().getString());
+			public void handle(DragEvent de) {
+				Transfer transfer = new Transfer(de.getDragboard().getString());
 				if (GameModel.instance().isLegalMove(transfer.getTop(), index)) {
 					imageView.setEffect(new DropShadow());
 				}
-				pEvent.consume();
+				de.consume();
 			}
 		};
 	}
 
 	public EventHandler<DragEvent> createDragExitedHandler(ImageView imageView, Card card) {
 		return new EventHandler<DragEvent>() {
-			public void handle(DragEvent pEvent) {
+			public void handle(DragEvent de) {
 				imageView.setEffect(null);
-				pEvent.consume();
+				de.consume();
 			}
 		};
 	}
 
 	public EventHandler<DragEvent> createDragDroppedHandler(ImageView imageView, Card card) {
 		return new EventHandler<DragEvent>() {
-			public void handle(DragEvent pEvent) {
-				Dragboard db = pEvent.getDragboard();
+			public void handle(DragEvent de) {
+				Dragboard db = de.getDragboard();
 				boolean success = false;
 				if (db.hasString()) {
 					GameModel.instance().getCardMove(new Transfer(db.getString()).getTop(), index).perform();
 					success = true;
 				}
-				pEvent.setDropCompleted(success);
-				pEvent.consume();
+				de.setDropCompleted(success);
+				de.consume();
 			}
 		};
 	}

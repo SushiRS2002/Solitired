@@ -28,7 +28,7 @@ public class SuitPile extends StackPane implements GameModelListenable {
 		this.index = index;
 		setPadding(new Insets(PADDING));
 		setStyle(BORDER_STYLE);
-		final ImageView image = new ImageView(CardPictures.getBack());
+		ImageView image = new ImageView(CardPictures.getBack());
 		image.setVisible(false);
 		getChildren().add(image);
 		dh = new DragHandler(image);
@@ -40,7 +40,6 @@ public class SuitPile extends StackPane implements GameModelListenable {
 		GameModel.instance().addListener(this);
 	}
 
-	@Override
 	public void gameStateChanged() {
 		if (GameModel.instance().isFoundationPileEmpty(index)) {
 			getChildren().get(0).setVisible(false);
@@ -53,10 +52,10 @@ public class SuitPile extends StackPane implements GameModelListenable {
 		}
 	}
 
-	private EventHandler<DragEvent> createOnDragOverHandler(ImageView view) {
+	public EventHandler<DragEvent> createOnDragOverHandler(ImageView image) {
 		return new EventHandler<DragEvent>() {
 			public void handle(DragEvent de) {
-				if (de.getGestureSource() != view && de.getDragboard().hasString()) {
+				if (de.getGestureSource() != image && de.getDragboard().hasString()) {
 					Transfer transfer = new Transfer(de.getDragboard().getString());
 					if (transfer.size() == 1 && GameModel.instance().isLegalMove(transfer.getTop(), index)) {
 						de.acceptTransferModes(TransferMode.MOVE);
@@ -67,7 +66,7 @@ public class SuitPile extends StackPane implements GameModelListenable {
 		};
 	}
 
-	private EventHandler<DragEvent> createOnDragEnteredHandler() {
+	public EventHandler<DragEvent> createOnDragEnteredHandler() {
 		return new EventHandler<DragEvent>() {
 			public void handle(DragEvent de) {
 				Transfer transfer = new Transfer(de.getDragboard().getString());
@@ -79,27 +78,27 @@ public class SuitPile extends StackPane implements GameModelListenable {
 		};
 	}
 
-	private EventHandler<DragEvent> createOnDragExitedHandler() {
+	public EventHandler<DragEvent> createOnDragExitedHandler() {
 		return new EventHandler<DragEvent>() {
-			public void handle(DragEvent pEvent) {
+			public void handle(DragEvent de) {
 				setStyle(BORDER_STYLE_NORMAL);
-				pEvent.consume();
+				de.consume();
 			}
 		};
 	}
 
-	private EventHandler<DragEvent> createOnDragDroppedHandler() {
+	public EventHandler<DragEvent> createOnDragDroppedHandler() {
 		return new EventHandler<DragEvent>() {
-			public void handle(DragEvent pEvent) {
-				Dragboard db = pEvent.getDragboard();
+			public void handle(DragEvent de) {
+				Dragboard db = de.getDragboard();
 				boolean success = false;
 				if (db.hasString()) {
-					Transfer transfer = new Transfer(pEvent.getDragboard().getString());
+					Transfer transfer = new Transfer(de.getDragboard().getString());
 					GameModel.instance().getCardMove(transfer.getTop(), index).perform();
 					success = true;
 				}
-				pEvent.setDropCompleted(success);
-				pEvent.consume();
+				de.setDropCompleted(success);
+				de.consume();
 			}
 		};
 	}

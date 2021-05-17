@@ -33,9 +33,9 @@ public class CardStacks implements Iterable<Card> {
 		return CARDSLIST.get(CARDSLIST.size() - 1);
 	}
 
-	public Card peek(int pIndex) {
-		assert pIndex >= 0 && pIndex < size();
-		return CARDSLIST.get(pIndex);
+	public Card peek(int index) {
+		assert index >= 0 && index < size();
+		return CARDSLIST.get(index);
 	}
 
 	public int size() {

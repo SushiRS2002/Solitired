@@ -26,14 +26,13 @@ public class DeckView extends HBox implements GameModelListenable {
 		button.setGraphic(new ImageView(CardPictures.getBack()));
 		button.setStyle(BUTTON_STYLE_NORMAL);
 		button.setOnMousePressed(new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent pEvent) {
-				((Button) pEvent.getSource()).setStyle(BUTTON_STYLE_PRESSED);
+			public void handle(MouseEvent me) {
+				((Button) me.getSource()).setStyle(BUTTON_STYLE_PRESSED);
 			}
 		});
 		button.setOnMouseReleased(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent pEvent) {
-				((Button) pEvent.getSource()).setStyle(BUTTON_STYLE_NORMAL);
+			public void handle(MouseEvent me) {
+				((Button) me.getSource()).setStyle(BUTTON_STYLE_NORMAL);
 				if (GameModel.instance().isDeckEmpty()) {
 					GameModel.instance().reset();
 				} else {
@@ -45,7 +44,7 @@ public class DeckView extends HBox implements GameModelListenable {
 		GameModel.instance().addListener(this);
 	}
 
-	private Canvas createNewGameImage() {
+	public Canvas createNewGameImage() {
 		double width = CardPictures.getBack().getWidth();
 		double height = CardPictures.getBack().getHeight();
 		Canvas canvas = new Canvas(width, height);

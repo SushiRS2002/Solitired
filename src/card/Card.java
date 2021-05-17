@@ -1,22 +1,21 @@
 package card;
 
-public class Card {
+public final class Card {
 	private static final Card[][] CARDS = new Card[Suit.values().length][];
-	private final Suit SUIT;
 	private final Value VALUE;
-
+	private final Suit SUIT;
 	static {
 		for (Suit suit : Suit.values()) {
 			CARDS[suit.ordinal()] = new Card[Value.values().length];
-			for (Value value : Value.values()) {
-				CARDS[suit.ordinal()][value.ordinal()] = new Card(value, suit);
+			for (Value rank : Value.values()) {
+				CARDS[suit.ordinal()][rank.ordinal()] = new Card(rank, suit);
 			}
 		}
 	}
 
 	public Card(Value value, Suit suit) {
-		this.VALUE = value;
-		this.SUIT = suit;
+		VALUE = value;
+		SUIT = suit;
 	}
 
 	public static Card get(Value value, Suit suit) {
@@ -34,12 +33,12 @@ public class Card {
 		return Integer.toString(getSUIT().ordinal() * Value.values().length + getVALUE().ordinal());
 	}
 
-	public Suit getSUIT() {
-		return SUIT;
-	}
-
 	public Value getVALUE() {
 		return VALUE;
+	}
+
+	public Suit getSUIT() {
+		return SUIT;
 	}
 
 	public String toString() {

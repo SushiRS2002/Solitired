@@ -14,7 +14,7 @@ public class DiscardView extends HBox implements GameModelListenable {
 
 	public DiscardView() {
 		setPadding(new Insets(PADDING));
-		final ImageView image = new ImageView(CardPictures.getBack());
+		ImageView image = new ImageView(CardPictures.getBack());
 		image.setVisible(false);
 		getChildren().add(image);
 		dh = new DragHandler(image);

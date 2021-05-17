@@ -12,7 +12,7 @@ public class DragHandler implements EventHandler<MouseEvent> {
 	private static final ClipboardContent CLIPBOARD_CONTENT = new ClipboardContent();
 	private Card card;
 	private ImageView image;
-	
+
 	public DragHandler(ImageView image) {
 		this.image = image;
 	}
@@ -23,9 +23,8 @@ public class DragHandler implements EventHandler<MouseEvent> {
 
 	public void handle(MouseEvent me) {
 		Dragboard db = image.startDragAndDrop(TransferMode.ANY);
-        CLIPBOARD_CONTENT.putString(card.getIDString());
-        db.setContent(CLIPBOARD_CONTENT);
-        me.consume();
+		CLIPBOARD_CONTENT.putString(card.getIDString());
+		db.setContent(CLIPBOARD_CONTENT);
+		me.consume();
 	}
-	
 }

@@ -7,17 +7,17 @@ import java.util.Stack;
 import card.Card;
 import card.CardDeck;
 import card.CardStacks;
-import card.Value;
 import card.Suit;
+import card.Value;
 
-public class GameModel implements GameModelViewable {
-	private static GameModel instance = new GameModel();
-	private final CardDeck deck = new CardDeck();
-	private final Stack<Movable> moves = new Stack<>();
-	private final CardStacks discard = new CardStacks();
-	private final FoundationPile foundations = new FoundationPile();
-	private final TablePile tables = new TablePile();
-	private final List<GameModelListenable> listeners = new ArrayList<>();
+public final class GameModel implements GameModelViewable {
+	private static final GameModel INSTANCE = new GameModel();
+	private CardDeck deck = new CardDeck();
+	private Stack<Movable> moves = new Stack<>();
+	private CardStacks discard = new CardStacks();
+	private FoundationPile foundations = new FoundationPile();
+	private TablePile tables = new TablePile();
+	private List<GameModelListenable> listeners = new ArrayList<>();
 
 	private static Movable nullMove = new Movable() {
 		public void perform() {
@@ -29,7 +29,7 @@ public class GameModel implements GameModelViewable {
 		}
 	};
 
-	private final Movable discardMove = new Movable() {
+	private Movable discardMove = new Movable() {
 		public void perform() {
 			assert !isDeckEmpty();
 			discard.push(deck.draw());
@@ -47,7 +47,7 @@ public class GameModel implements GameModelViewable {
 	}
 
 	public static GameModel instance() {
-		return instance;
+		return INSTANCE;
 	}
 
 	public void addListener(GameModelListenable listener) {
@@ -82,13 +82,13 @@ public class GameModel implements GameModelViewable {
 		return discard.isEmpty();
 	}
 
-	public boolean isFoundationPileEmpty(Foundation pile) {
-		return foundations.isEmpty(pile);
+	public boolean isFoundationPileEmpty(Foundation index) {
+		return foundations.isEmpty(index);
 	}
 
-	public Card peekSuitStack(Foundation pile) {
-		assert pile != null && !isFoundationPileEmpty(pile);
-		return foundations.peek(pile);
+	public Card peekSuitStack(Foundation index) {
+		assert index != null && !isFoundationPileEmpty(index);
+		return foundations.peek(index);
 	}
 
 	public Card peekDiscardPile() {
@@ -96,7 +96,7 @@ public class GameModel implements GameModelViewable {
 		return discard.peek();
 	}
 
-	private Locatable find(Card card) {
+	public Locatable find(Card card) {
 		if (!discard.isEmpty() && discard.peek() == card) {
 			return Discard.DISCARD_PILE;
 		}
@@ -114,7 +114,7 @@ public class GameModel implements GameModelViewable {
 		return null;
 	}
 
-	private void absorbCard(Locatable location) {
+	public void absorbCard(Locatable location) {
 		if (location == Discard.DISCARD_PILE) {
 			assert !discard.isEmpty();
 			discard.pop();
@@ -127,7 +127,7 @@ public class GameModel implements GameModelViewable {
 		}
 	}
 
-	private void move(Card card, Locatable destination) {
+	public void move(Card card, Locatable destination) {
 		Locatable source = find(card);
 		if (source instanceof Table && destination instanceof Table) {
 			tables.moveWithin(card, (Table) source, (Table) destination);
@@ -145,12 +145,10 @@ public class GameModel implements GameModelViewable {
 		notifyListeners();
 	}
 
-	@Override
 	public CardStacks getTablePile(Table index) {
 		return tables.getPile(index);
 	}
 
-	@Override
 	public boolean isVisibleInTablePile(Card card) {
 		return tables.contains(card) && tables.isVisible(card);
 	}
@@ -159,13 +157,13 @@ public class GameModel implements GameModelViewable {
 		return tables.contains(card) && tables.isLowestVisible(card);
 	}
 
-	public CardStacks getSubStack(Card card, Table pile) {
-		assert card != null && pile != null && find(card) == pile;
-		return tables.getSequence(card, pile);
+	public CardStacks getSubStack(Card card, Table index) {
+		assert card != null && index != null && find(card) == index;
+		return tables.getSequence(card, index);
 	}
 
 	public boolean isLegalMove(Card card, Locatable destination) {
-		if (destination instanceof FoundationPile) {
+		if (destination instanceof Foundation) {
 			return foundations.canMoveTo(card, (Foundation) destination);
 		} else if (destination instanceof Table) {
 			return tables.canMoveTo(card, (Table) destination);
@@ -195,15 +193,15 @@ public class GameModel implements GameModelViewable {
 		return tables.isBottomKing(card);
 	}
 
-	private class CardMove implements Movable {
+	public class CardMove implements Movable {
 		private Card card;
 		private Locatable origin;
 		private Locatable destination;
 
-		public CardMove(Card c, Locatable d) {
-			card = c;
-			destination = d;
-			origin = find(c);
+		public CardMove(Card card, Locatable destination) {
+			this.card = card;
+			this.destination = destination;
+			origin = find(card);
 		}
 
 		public void perform() {
@@ -214,11 +212,11 @@ public class GameModel implements GameModelViewable {
 
 	}
 
-	private class RevealTopMove implements Movable {
+	public class RevealTopMove implements Movable {
 		private final Table index;
 
-		public RevealTopMove(Table i) {
-			index = i;
+		public RevealTopMove(Table index) {
+			this.index = index;
 		}
 
 		public void perform() {
@@ -226,5 +224,6 @@ public class GameModel implements GameModelViewable {
 			moves.push(this);
 			notifyListeners();
 		}
+
 	}
 }
