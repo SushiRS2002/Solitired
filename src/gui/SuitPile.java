@@ -13,7 +13,7 @@ import layout.Foundation;
 import layout.GameModel;
 import layout.GameModelListenable;
 
-public class SuitPile extends StackPane implements GameModelListenable {
+public class SuitPile extends StackPane implements GameModelListenable { // Shows a completed stack of cards.
 	private static final int PADDING = 5;
 	private static final String BORDER_STYLE = "-fx-border-color: lightgray;" + "-fx-border-width: 3;"
 			+ " -fx-border-radius: 10.0";
@@ -24,7 +24,7 @@ public class SuitPile extends StackPane implements GameModelListenable {
 	private DragHandler dh;
 	private Foundation index;
 
-	public SuitPile(Foundation index) {
+	public SuitPile(Foundation index) { // SuitPile's constructor.
 		this.index = index;
 		setPadding(new Insets(PADDING));
 		setStyle(BORDER_STYLE);
