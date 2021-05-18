@@ -15,16 +15,16 @@ import card.CardStacks;
 import card.Value;
 
 public class TablePile {
-	private final Map<Table, CardStacks> tableMap = new HashMap<>();
-	private final Set<Card> visible = new HashSet<>();
+	private final Map<Table, CardStacks> tableMap = new HashMap<>(); // A map of tables.
+	private final Set<Card> visible = new HashSet<>(); // A visible condition.
 
-	public TablePile() {
+	public TablePile() { // Creates seven empty table piles.
 		for (Table index : Table.values()) {
 			tableMap.put(index, new CardStacks());
 		}
 	}
 
-	public void initialize(CardDeck deck) {
+	public void initialize(CardDeck deck) { // Fill seven table piles with cards.
 		assert deck != null;
 		visible.clear();
 		for (int i = 0; i < Table.values().length; i++) {
@@ -39,7 +39,7 @@ public class TablePile {
 		}
 	}
 
-	public boolean canMoveTo(Card card, Table index) {
+	public boolean canMoveTo(Card card, Table index) { // Checks if moving a card to table pile is able to do it.
 		assert card != null && index != null;
 		CardStacks stacks = tableMap.get(index);
 		if (stacks.isEmpty()) {
@@ -49,17 +49,17 @@ public class TablePile {
 		}
 	}
 
-	public boolean isBottomKing(Card card) {
+	public boolean isBottomKing(Card card) { // Checks if the lowest card is a king.
 		assert card != null && contains(card);
 		return card.getVALUE() == Value.KING && tableMap.get(getPile(card)).peek(0) == card;
 	}
 
-	public CardStacks getPile(Table index) {
+	public CardStacks getPile(Table index) { // Returns a copy of that entire pile.
 		assert index != null;
 		return new CardStacks(tableMap.get(index));
 	}
 
-	public Table getPile(Card card) {
+	public Table getPile(Card card) { // Returns a position which includes that card.
 		assert contains(card);
 		for (Table pile : Table.values()) {
 			if (contains(card, pile)) {
@@ -70,7 +70,7 @@ public class TablePile {
 		return null;
 	}
 
-	public boolean revealsTop(Card card) {
+	public boolean revealsTop(Card card) { // Checks if moving a card away reveals the top of the pile.
 		assert card != null && contains(card);
 		Optional<Card> previous = getPreviousCard(card);
 		if (!previous.isPresent()) {
@@ -79,7 +79,7 @@ public class TablePile {
 		return visible.contains(card) && !visible.contains(previous.get());
 	}
 
-	public Optional<Card> getPreviousCard(Card card) {
+	public Optional<Card> getPreviousCard(Card card) { // Returns a card after moving away from the pile.
 		Optional<Card> previous = Optional.empty();
 		for (Card c : tableMap.get(getPile(card))) {
 			if (c == card) {
@@ -90,7 +90,7 @@ public class TablePile {
 		return Optional.empty();
 	}
 
-	public void moveWithin(Card card, Table origin, Table destination) {
+	public void moveWithin(Card card, Table origin, Table destination) { // Moves a stack of cards from A to B.
 		assert card != null && origin != null && destination != null;
 		assert contains(card, origin);
 		assert isVisible(card);
@@ -106,7 +106,7 @@ public class TablePile {
 		}
 	}
 
-	public CardStacks getSequence(Card card, Table index) {
+	public CardStacks getSequence(Card card, Table index) { // Returns a sequence of cards in that index.
 		assert card != null && index != null;
 		CardStacks stack = tableMap.get(index);
 		List<Card> result = new ArrayList<>();
@@ -122,17 +122,17 @@ public class TablePile {
 		return new CardStacks(result);
 	}
 
-	public void showTop(Table index) {
+	public void showTop(Table index) { // Shows a topmost card of that index.
 		assert !tableMap.get(index).isEmpty();
 		visible.add(tableMap.get(index).peek());
 	}
 
-	public void hideTop(Table index) {
+	public void hideTop(Table index) { // Hides a topmost card of that index.
 		assert !tableMap.get(index).isEmpty();
 		visible.remove(tableMap.get(index).peek());
 	}
 
-	public boolean contains(Card card, Table index) {
+	public boolean contains(Card card, Table index) { // Checks if that index has a specified card.
 		assert card != null && index != null;
 		for (Card c : tableMap.get(index)) {
 			if (c == card) {
@@ -142,7 +142,7 @@ public class TablePile {
 		return false;
 	}
 
-	public boolean contains(Card card) {
+	public boolean contains(Card card) { // Checks if a specified card in whatever index.
 		assert card != null;
 		for (Table index : Table.values()) {
 			if (contains(card, index)) {
@@ -152,12 +152,12 @@ public class TablePile {
 		return false;
 	}
 
-	public boolean isVisible(Card card) {
+	public boolean isVisible(Card card) { // Checks if that card is visible.
 		assert contains(card);
 		return visible.contains(card);
 	}
 
-	public boolean isLowestVisible(Card card) {
+	public boolean isLowestVisible(Card card) { // Checks if that card is visible and in the lowest position.
 		assert card != null && contains(card);
 		if (!isVisible(card)) {
 			return false;
@@ -167,12 +167,12 @@ public class TablePile {
 		}
 	}
 
-	public void pop(Table index) {
+	public void pop(Table index) { // Removes the top card from that index.
 		assert !tableMap.get(index).isEmpty();
 		visible.remove(tableMap.get(index).pop());
 	}
 
-	public void push(Card card, Table index) {
+	public void push(Card card, Table index) { // Adds a visible card on top of that index.
 		assert card != null && index != null;
 		tableMap.get(index).push(card);
 		visible.add(card);
