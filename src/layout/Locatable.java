@@ -1,5 +1,5 @@
 package layout;
 
-public interface Locatable {
-	
+public interface Locatable { // A location in the game.
+
 }
