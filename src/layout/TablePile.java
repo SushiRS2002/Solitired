@@ -41,11 +41,11 @@ public class TablePile {
 
 	public boolean canMoveTo(Card card, Table index) {
 		assert card != null && index != null;
-		CardStacks pile = tableMap.get(index);
-		if (pile.isEmpty()) {
+		CardStacks stacks = tableMap.get(index);
+		if (stacks.isEmpty()) {
 			return card.getVALUE() == Value.KING;
 		} else {
-			return card.getVALUE().ordinal() == pile.peek().getVALUE().ordinal() - 1;
+			return card.getVALUE().ordinal() == stacks.peek().getVALUE().ordinal() - 1;
 		}
 	}
 
@@ -85,24 +85,24 @@ public class TablePile {
 			if (c == card) {
 				return previous;
 			}
-			previous = Optional.of(card);
+			previous = Optional.of(c);
 		}
 		return Optional.empty();
 	}
 
-	public void moveWithin(Card card, Table prigin, Table destination) {
-		assert card != null && prigin != null && destination != null;
-		assert contains(card, prigin);
+	public void moveWithin(Card card, Table origin, Table destination) {
+		assert card != null && origin != null && destination != null;
+		assert contains(card, origin);
 		assert isVisible(card);
-		Stack<Card> temp = new Stack<>();
-		Card c = tableMap.get(prigin).pop();
-		temp.push(card);
+		Stack<Card> temporary = new Stack<>();
+		Card c = tableMap.get(origin).pop();
+		temporary.push(c);
 		while (c != card) {
-			card = tableMap.get(prigin).pop();
-			temp.push(card);
+			c = tableMap.get(origin).pop();
+			temporary.push(c);
 		}
-		while (!temp.isEmpty()) {
-			tableMap.get(destination).push(temp.pop());
+		while (!temporary.isEmpty()) {
+			tableMap.get(destination).push(temporary.pop());
 		}
 	}
 
@@ -116,7 +116,7 @@ public class TablePile {
 				hasSeen = true;
 			}
 			if (hasSeen) {
-				result.add(card);
+				result.add(c);
 			}
 		}
 		return new CardStacks(result);

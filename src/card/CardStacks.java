@@ -50,6 +50,7 @@ public class CardStacks implements Iterable<Card> {
 		return CARDSLIST.size() == 0;
 	}
 
+	@Override
 	public Iterator<Card> iterator() {
 		return CARDSLIST.iterator();
 	}

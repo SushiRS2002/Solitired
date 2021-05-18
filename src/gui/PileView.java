@@ -68,6 +68,7 @@ public class PileView extends StackPane implements GameModelListenable {
 
 	public EventHandler<MouseEvent> createDragDetectedHandler(ImageView imageView, Card card) {
 		return new EventHandler<MouseEvent>() {
+			@Override
 			public void handle(MouseEvent me) {
 				Dragboard db = imageView.startDragAndDrop(TransferMode.ANY);
 				CLIPBOARD_CONTENT.putString(Transfer.serialize(GameModel.instance().getSubStack(card, index)));
@@ -79,6 +80,7 @@ public class PileView extends StackPane implements GameModelListenable {
 
 	public EventHandler<DragEvent> createDragOverHandler(ImageView imageView, Card card) {
 		return new EventHandler<DragEvent>() {
+			@Override
 			public void handle(DragEvent de) {
 				if (de.getGestureSource() != imageView && de.getDragboard().hasString()) {
 					Transfer transfer = new Transfer(de.getDragboard().getString());
@@ -93,6 +95,7 @@ public class PileView extends StackPane implements GameModelListenable {
 
 	public EventHandler<DragEvent> createDragEnteredHandler(ImageView imageView, Card card) {
 		return new EventHandler<DragEvent>() {
+			@Override
 			public void handle(DragEvent de) {
 				Transfer transfer = new Transfer(de.getDragboard().getString());
 				if (GameModel.instance().isLegalMove(transfer.getTop(), index)) {
@@ -105,6 +108,7 @@ public class PileView extends StackPane implements GameModelListenable {
 
 	public EventHandler<DragEvent> createDragExitedHandler(ImageView imageView, Card card) {
 		return new EventHandler<DragEvent>() {
+			@Override
 			public void handle(DragEvent de) {
 				imageView.setEffect(null);
 				de.consume();
@@ -114,6 +118,7 @@ public class PileView extends StackPane implements GameModelListenable {
 
 	public EventHandler<DragEvent> createDragDroppedHandler(ImageView imageView, Card card) {
 		return new EventHandler<DragEvent>() {
+			@Override
 			public void handle(DragEvent de) {
 				Dragboard db = de.getDragboard();
 				boolean success = false;
@@ -127,6 +132,7 @@ public class PileView extends StackPane implements GameModelListenable {
 		};
 	}
 
+	@Override
 	public void gameStateChanged() {
 		buildLayout();
 	}

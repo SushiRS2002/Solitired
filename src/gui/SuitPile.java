@@ -40,6 +40,7 @@ public class SuitPile extends StackPane implements GameModelListenable {
 		GameModel.instance().addListener(this);
 	}
 
+	@Override
 	public void gameStateChanged() {
 		if (GameModel.instance().isFoundationPileEmpty(index)) {
 			getChildren().get(0).setVisible(false);
@@ -54,6 +55,7 @@ public class SuitPile extends StackPane implements GameModelListenable {
 
 	public EventHandler<DragEvent> createOnDragOverHandler(ImageView image) {
 		return new EventHandler<DragEvent>() {
+			@Override
 			public void handle(DragEvent de) {
 				if (de.getGestureSource() != image && de.getDragboard().hasString()) {
 					Transfer transfer = new Transfer(de.getDragboard().getString());
@@ -68,6 +70,7 @@ public class SuitPile extends StackPane implements GameModelListenable {
 
 	public EventHandler<DragEvent> createOnDragEnteredHandler() {
 		return new EventHandler<DragEvent>() {
+			@Override
 			public void handle(DragEvent de) {
 				Transfer transfer = new Transfer(de.getDragboard().getString());
 				if (transfer.size() == 1 && GameModel.instance().isLegalMove(transfer.getTop(), index)) {
@@ -80,6 +83,7 @@ public class SuitPile extends StackPane implements GameModelListenable {
 
 	public EventHandler<DragEvent> createOnDragExitedHandler() {
 		return new EventHandler<DragEvent>() {
+			@Override
 			public void handle(DragEvent de) {
 				setStyle(BORDER_STYLE_NORMAL);
 				de.consume();
@@ -89,6 +93,7 @@ public class SuitPile extends StackPane implements GameModelListenable {
 
 	public EventHandler<DragEvent> createOnDragDroppedHandler() {
 		return new EventHandler<DragEvent>() {
+			@Override
 			public void handle(DragEvent de) {
 				Dragboard db = de.getDragboard();
 				boolean success = false;

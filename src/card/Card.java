@@ -7,8 +7,8 @@ public final class Card {
 	static {
 		for (Suit suit : Suit.values()) {
 			CARDS[suit.ordinal()] = new Card[Value.values().length];
-			for (Value rank : Value.values()) {
-				CARDS[suit.ordinal()][rank.ordinal()] = new Card(rank, suit);
+			for (Value value : Value.values()) {
+				CARDS[suit.ordinal()][value.ordinal()] = new Card(value, suit);
 			}
 		}
 	}
@@ -41,6 +41,7 @@ public final class Card {
 		return SUIT;
 	}
 
+	@Override
 	public String toString() {
 		return VALUE + " of " + SUIT;
 	}

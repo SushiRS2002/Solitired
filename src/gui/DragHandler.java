@@ -21,6 +21,7 @@ public class DragHandler implements EventHandler<MouseEvent> {
 		this.card = card;
 	}
 
+	@Override
 	public void handle(MouseEvent me) {
 		Dragboard db = image.startDragAndDrop(TransferMode.ANY);
 		CLIPBOARD_CONTENT.putString(card.getIDString());

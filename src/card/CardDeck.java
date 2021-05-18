@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class CardDeck {
-	private CardStacks stack;
+	private CardStacks deck;
 
 	public CardDeck() {
 		shuffle();
@@ -14,25 +14,25 @@ public class CardDeck {
 	public void shuffle() {
 		List<Card> cards = new ArrayList<>();
 		for (Suit suit : Suit.values()) {
-			for (Value rank : Value.values()) {
-				cards.add(Card.get(rank, suit));
+			for (Value value : Value.values()) {
+				cards.add(Card.get(value, suit));
 			}
 		}
 		Collections.shuffle(cards);
-		stack = new CardStacks(cards);
+		deck = new CardStacks(cards);
 	}
 
 	public void push(Card card) {
 		assert card != null;
-		stack.push(card);
+		deck.push(card);
 	}
 
 	public Card draw() {
 		assert !isEmpty();
-		return stack.pop();
+		return deck.pop();
 	}
 
 	public boolean isEmpty() {
-		return stack.isEmpty();
+		return deck.isEmpty();
 	}
 }

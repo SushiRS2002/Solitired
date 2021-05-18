@@ -22,6 +22,7 @@ public class DiscardView extends HBox implements GameModelListenable {
 		GameModel.instance().addListener(this);
 	}
 
+	@Override
 	public void gameStateChanged() {
 		if (GameModel.instance().isDiscardPileEmpty()) {
 			getChildren().get(0).setVisible(false);

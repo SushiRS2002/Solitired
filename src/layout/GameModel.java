@@ -20,16 +20,19 @@ public final class GameModel implements GameModelViewable {
 	private List<GameModelListenable> listeners = new ArrayList<>();
 
 	private static Movable nullMove = new Movable() {
+		@Override
 		public void perform() {
 
 		}
 
+		@Override
 		public boolean isNull() {
 			return true;
 		}
 	};
 
 	private Movable discardMove = new Movable() {
+		@Override
 		public void perform() {
 			assert !isDeckEmpty();
 			discard.push(deck.draw());
@@ -74,14 +77,17 @@ public final class GameModel implements GameModelViewable {
 		return foundations.getTotalSize() == Value.values().length * Suit.values().length;
 	}
 
+	@Override
 	public boolean isDeckEmpty() {
 		return deck.isEmpty();
 	}
 
+	@Override
 	public boolean isDiscardPileEmpty() {
 		return discard.isEmpty();
 	}
 
+	@Override
 	public boolean isFoundationPileEmpty(Foundation index) {
 		return foundations.isEmpty(index);
 	}
@@ -91,6 +97,7 @@ public final class GameModel implements GameModelViewable {
 		return foundations.peek(index);
 	}
 
+	@Override
 	public Card peekDiscardPile() {
 		assert discard.size() != 0;
 		return discard.peek();
@@ -145,14 +152,17 @@ public final class GameModel implements GameModelViewable {
 		notifyListeners();
 	}
 
+	@Override
 	public CardStacks getTablePile(Table index) {
 		return tables.getPile(index);
 	}
 
+	@Override
 	public boolean isVisibleInTablePile(Card card) {
 		return tables.contains(card) && tables.isVisible(card);
 	}
 
+	@Override
 	public boolean isLowestVisibleInTablePile(Card card) {
 		return tables.contains(card) && tables.isLowestVisible(card);
 	}
@@ -162,6 +172,7 @@ public final class GameModel implements GameModelViewable {
 		return tables.getSequence(card, index);
 	}
 
+	@Override
 	public boolean isLegalMove(Card card, Locatable destination) {
 		if (destination instanceof Foundation) {
 			return foundations.canMoveTo(card, (Foundation) destination);
@@ -172,14 +183,17 @@ public final class GameModel implements GameModelViewable {
 		}
 	}
 
+	@Override
 	public Movable getNullMove() {
 		return nullMove;
 	}
 
+	@Override
 	public Movable getDiscardMove() {
 		return discardMove;
 	}
 
+	@Override
 	public Movable getCardMove(Card card, Locatable destination) {
 		Locatable source = find(card);
 		if (source instanceof Table && tables.revealsTop(card)) {
@@ -188,6 +202,7 @@ public final class GameModel implements GameModelViewable {
 		return new CardMove(card, destination);
 	}
 
+	@Override
 	public boolean isBottomKing(Card card) {
 		assert card != null && tables.contains(card);
 		return tables.isBottomKing(card);
@@ -204,6 +219,7 @@ public final class GameModel implements GameModelViewable {
 			origin = find(card);
 		}
 
+		@Override
 		public void perform() {
 			assert isLegalMove(card, destination);
 			move(card, destination);
@@ -219,6 +235,7 @@ public final class GameModel implements GameModelViewable {
 			this.index = index;
 		}
 
+		@Override
 		public void perform() {
 			tables.showTop(index);
 			moves.push(this);

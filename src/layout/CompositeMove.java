@@ -12,6 +12,7 @@ public class CompositeMove implements Movable {
 		}
 	}
 
+	@Override
 	public void perform() {
 		for (Movable move : moves) {
 			move.perform();
