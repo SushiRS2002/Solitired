@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CompositeMove implements Movable {
-	private final List<Movable> moves = new ArrayList<>();
+	private final List<Movable> moves = new ArrayList<>(); // List of all card moves.
 
-	public CompositeMove(Movable... move) {
+	public CompositeMove(Movable... move) { // Add all move in the list.
 		for (Movable m : move) {
 			moves.add(m);
 		}
