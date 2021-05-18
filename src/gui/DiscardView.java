@@ -8,7 +8,7 @@ import javafx.scene.layout.HBox;
 import layout.GameModel;
 import layout.GameModelListenable;
 
-public class DiscardView extends HBox implements GameModelListenable {
+public class DiscardView extends HBox implements GameModelListenable { // Allows dragging cards from the discard pile.
 	private static final int PADDING = 5;
 	private DragHandler dh;
 
