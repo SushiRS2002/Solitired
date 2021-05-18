@@ -3,11 +3,11 @@ package gui;
 import card.Card;
 import card.CardStacks;
 
-public class Transfer {
+public class Transfer { // The transfer of cards.
 	private static final String SEPARATOR = ";";
 	private Card[] cards;
 
-	public Transfer(String str) {
+	public Transfer(String str) { // Transfer's constructor.
 		assert str != null && str.length() > 0;
 		String[] tokens = str.split(SEPARATOR);
 		cards = new Card[tokens.length];
@@ -17,7 +17,7 @@ public class Transfer {
 		assert cards.length > 0;
 	}
 
-	public static String serialize(CardStacks stacks) {
+	public static String serialize(CardStacks stacks) { // An array of card's ID.
 		String result = "";
 		for (Card card : stacks) {
 			result += card.getIDString() + SEPARATOR;
@@ -28,11 +28,11 @@ public class Transfer {
 		return result;
 	}
 
-	public Card getTop() {
+	public Card getTop() { // Returns the top card in the transfer.
 		return cards[0];
 	}
 
-	public int size() {
+	public int size() { // Returns the transfer's size.
 		return cards.length;
 	}
 }
