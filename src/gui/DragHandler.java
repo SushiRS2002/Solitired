@@ -8,16 +8,16 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 
-public class DragHandler implements EventHandler<MouseEvent> {
+public class DragHandler implements EventHandler<MouseEvent> { // Stores a string represents the dragged card.
 	private static final ClipboardContent CLIPBOARD_CONTENT = new ClipboardContent();
-	private Card card;
-	private ImageView image;
+	private Card card; // A card
+	private ImageView image; // A card's image
 
-	public DragHandler(ImageView image) {
+	public DragHandler(ImageView image) { // DragHandler's constructor.
 		this.image = image;
 	}
 
-	public void setCard(Card card) {
+	public void setCard(Card card) { // Set a card.
 		this.card = card;
 	}
 
