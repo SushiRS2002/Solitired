@@ -22,7 +22,7 @@ public class DeckView extends HBox implements GameModelListenable { // Allows to
 	private static final int IMAGE_NEW_LINE_WIDTH = 10;
 	private static final int IMAGE_FONT_SIZE = 22;
 
-	public DeckView() {
+	public DeckView() { // DeckView's constructor.
 		final Button button = new Button();
 		button.setGraphic(new ImageView(CardPictures.getBack()));
 		button.setStyle(BUTTON_STYLE_NORMAL);
