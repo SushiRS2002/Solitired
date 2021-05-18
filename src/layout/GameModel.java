@@ -11,15 +11,15 @@ import card.Suit;
 import card.Value;
 
 public final class GameModel implements GameModelViewable {
-	private static final GameModel INSTANCE = new GameModel();
-	private CardDeck deck = new CardDeck();
-	private Stack<Movable> moves = new Stack<>();
-	private CardStacks discard = new CardStacks();
-	private FoundationPile foundations = new FoundationPile();
-	private TablePile tables = new TablePile();
-	private List<GameModelListenable> listeners = new ArrayList<>();
+	private static final GameModel INSTANCE = new GameModel(); // A model of game.
+	private CardDeck deck = new CardDeck(); // A deck.
+	private Stack<Movable> moves = new Stack<>(); // A stack of moves.
+	private CardStacks discard = new CardStacks(); // A discard pile.
+	private FoundationPile foundations = new FoundationPile(); // Four foundation piles.
+	private TablePile tables = new TablePile(); // Seven table piles.
+	private List<GameModelListenable> listeners = new ArrayList<>(); // A list of game state listeners.
 
-	private static Movable nullMove = new Movable() {
+	private static Movable nullMove = new Movable() { // A null move.
 		@Override
 		public void perform() {
 
@@ -31,7 +31,7 @@ public final class GameModel implements GameModelViewable {
 		}
 	};
 
-	private Movable discardMove = new Movable() {
+	private Movable discardMove = new Movable() { // A discard move.
 		@Override
 		public void perform() {
 			assert !isDeckEmpty();
@@ -41,30 +41,30 @@ public final class GameModel implements GameModelViewable {
 		}
 	};
 
-	public GameModel() {
+	public GameModel() { // Reset when called.
 		reset();
 	}
 
-	public int getScore() {
+	public int getScore() { // Return the number of cards in foundation piles.
 		return foundations.getTotalSize();
 	}
 
-	public static GameModel instance() {
+	public static GameModel instance() { // A singleton instance.
 		return INSTANCE;
 	}
 
-	public void addListener(GameModelListenable listener) {
+	public void addListener(GameModelListenable listener) { // Add a listener in the list.
 		assert listener != null;
 		listeners.add(listener);
 	}
 
-	public void notifyListeners() {
+	public void notifyListeners() { // Called when game state has been changed.
 		for (GameModelListenable listener : listeners) {
 			listener.gameStateChanged();
 		}
 	}
 
-	public void reset() {
+	public void reset() { // Reset the game.
 		moves.clear();
 		deck.shuffle();
 		discard.clear();
@@ -73,37 +73,37 @@ public final class GameModel implements GameModelViewable {
 		notifyListeners();
 	}
 
-	public boolean isCompleted() {
+	public boolean isCompleted() { // Checks if the game is completed.
 		return foundations.getTotalSize() == Value.values().length * Suit.values().length;
 	}
 
 	@Override
-	public boolean isDeckEmpty() {
+	public boolean isDeckEmpty() { // Checks if the deck is empty.
 		return deck.isEmpty();
 	}
 
 	@Override
-	public boolean isDiscardPileEmpty() {
+	public boolean isDiscardPileEmpty() { // Checks if the discard pile is empty.
 		return discard.isEmpty();
 	}
 
 	@Override
-	public boolean isFoundationPileEmpty(Foundation index) {
+	public boolean isFoundationPileEmpty(Foundation index) { // Checks if the foundation pile is empty.
 		return foundations.isEmpty(index);
 	}
 
-	public Card peekSuitStack(Foundation index) {
+	public Card peekSuitStack(Foundation index) { // Returns the topmost card of that foundation pile.
 		assert index != null && !isFoundationPileEmpty(index);
 		return foundations.peek(index);
 	}
 
 	@Override
-	public Card peekDiscardPile() {
+	public Card peekDiscardPile() { // Returns the topmost card of the discard pile.
 		assert discard.size() != 0;
 		return discard.peek();
 	}
 
-	public Locatable find(Card card) {
+	public Locatable find(Card card) { // Returns the card's location.
 		if (!discard.isEmpty() && discard.peek() == card) {
 			return Discard.DISCARD_PILE;
 		}
@@ -121,7 +121,7 @@ public final class GameModel implements GameModelViewable {
 		return null;
 	}
 
-	public void absorbCard(Locatable location) {
+	public void absorbCard(Locatable location) { // Removes a card from that location.
 		if (location == Discard.DISCARD_PILE) {
 			assert !discard.isEmpty();
 			discard.pop();
@@ -134,7 +134,7 @@ public final class GameModel implements GameModelViewable {
 		}
 	}
 
-	public void move(Card card, Locatable destination) {
+	public void move(Card card, Locatable destination) { // Move a card from A to B.
 		Locatable source = find(card);
 		if (source instanceof Table && destination instanceof Table) {
 			tables.moveWithin(card, (Table) source, (Table) destination);
@@ -153,27 +153,27 @@ public final class GameModel implements GameModelViewable {
 	}
 
 	@Override
-	public CardStacks getTablePile(Table index) {
+	public CardStacks getTablePile(Table index) { // Returns a table pile via its index.
 		return tables.getPile(index);
 	}
 
 	@Override
-	public boolean isVisibleInTablePile(Card card) {
+	public boolean isVisibleInTablePile(Card card) { // Checks if the card is visible in that table pile.
 		return tables.contains(card) && tables.isVisible(card);
 	}
 
 	@Override
-	public boolean isLowestVisibleInTablePile(Card card) {
+	public boolean isLowestVisibleInTablePile(Card card) { // Checks if the card is visible and in the lowest position.
 		return tables.contains(card) && tables.isLowestVisible(card);
 	}
 
-	public CardStacks getSubStack(Card card, Table index) {
+	public CardStacks getSubStack(Card card, Table index) { // Get the stack of the card and the ones below it.
 		assert card != null && index != null && find(card) == index;
 		return tables.getSequence(card, index);
 	}
 
 	@Override
-	public boolean isLegalMove(Card card, Locatable destination) {
+	public boolean isLegalMove(Card card, Locatable destination) { // Checks if moving that card is able to do it.
 		if (destination instanceof Foundation) {
 			return foundations.canMoveTo(card, (Foundation) destination);
 		} else if (destination instanceof Table) {
@@ -184,17 +184,17 @@ public final class GameModel implements GameModelViewable {
 	}
 
 	@Override
-	public Movable getNullMove() {
+	public Movable getNullMove() { // Returns null move.
 		return nullMove;
 	}
 
 	@Override
-	public Movable getDiscardMove() {
+	public Movable getDiscardMove() { // Returns discard move.
 		return discardMove;
 	}
 
 	@Override
-	public Movable getCardMove(Card card, Locatable destination) {
+	public Movable getCardMove(Card card, Locatable destination) { // Returns card move.
 		Locatable source = find(card);
 		if (source instanceof Table && tables.revealsTop(card)) {
 			return new CompositeMove(new CardMove(card, destination), new RevealTopMove((Table) source));
@@ -203,12 +203,12 @@ public final class GameModel implements GameModelViewable {
 	}
 
 	@Override
-	public boolean isBottomKing(Card card) {
+	public boolean isBottomKing(Card card) { // Checks if the lowest card is a king.
 		assert card != null && tables.contains(card);
 		return tables.isBottomKing(card);
 	}
 
-	public class CardMove implements Movable {
+	public class CardMove implements Movable { // A move of card stacks.
 		private Card card;
 		private Locatable origin;
 		private Locatable destination;
@@ -228,7 +228,7 @@ public final class GameModel implements GameModelViewable {
 
 	}
 
-	public class RevealTopMove implements Movable {
+	public class RevealTopMove implements Movable { // Reveals the top of the stack.
 		private final Table index;
 
 		public RevealTopMove(Table index) {
