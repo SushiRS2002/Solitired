@@ -19,13 +19,13 @@ import layout.GameModel;
 import layout.GameModelListenable;
 import layout.Table;
 
-public class PileView extends StackPane implements GameModelListenable {
+public class PileView extends StackPane implements GameModelListenable { // Shows a stack of cards.
 	private static final int PADDING = 5;
-	private static final int Y_OFFSET = 32;
+	private static final int Y_OFFSET = 33;
 	private static final ClipboardContent CLIPBOARD_CONTENT = new ClipboardContent();
 	private Table index;
 
-	public PileView(Table index) {
+	public PileView(Table index) { // PileView's constructor.
 		this.index = index;
 		setPadding(new Insets(PADDING));
 		setAlignment(Pos.TOP_CENTER);
@@ -33,7 +33,7 @@ public class PileView extends StackPane implements GameModelListenable {
 		GameModel.instance().addListener(this);
 	}
 
-	public static Image getImage(Card card) {
+	public static Image getImage(Card card) { // Returns card's image.
 		if (GameModel.instance().isVisibleInTablePile(card)) {
 			return CardPictures.getCard(card);
 		} else {
@@ -41,7 +41,7 @@ public class PileView extends StackPane implements GameModelListenable {
 		}
 	}
 
-	public void buildLayout() {
+	public void buildLayout() { // Table piles' layout.
 		getChildren().clear();
 		int offset = 0;
 		CardStacks stack = GameModel.instance().getTablePile(index);
