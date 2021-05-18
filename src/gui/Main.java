@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import layout.Foundation;
 import layout.Table;
 
-public class Main extends Application {
+public class Main extends Application { // Launches the application.
 	private static final int WIDTH = 1250;
 	private static final int HEIGHT = 750;
 	private static final int MARGIN_OUTER = 10;
@@ -21,7 +21,7 @@ public class Main extends Application {
 	private PileView[] pileView = new PileView[Table.values().length];
 
 	public Main() {
-		
+
 	}
 
 	public static void main(String[] args) {
