@@ -1,5 +1,5 @@
 package layout;
 
 public interface GameModelListenable {
-	void gameStateChanged();
+	void gameStateChanged(); // Called when the game state is changed.
 }
