@@ -72,7 +72,7 @@ public class TableView extends StackPane implements GameModelListenable { // Sho
 			@Override
 			public void handle(MouseEvent me) {
 				Dragboard db = imageView.startDragAndDrop(TransferMode.ANY);
-				CLIPBOARDCONTENT.putString(Transfer.serialize(GameModel.instance().getSubStack(card, index)));
+				CLIPBOARDCONTENT.putString(TransferedStack.serialize(GameModel.instance().getSubStack(card, index)));
 				db.setContent(CLIPBOARDCONTENT);
 				me.consume();
 			}
@@ -86,7 +86,7 @@ public class TableView extends StackPane implements GameModelListenable { // Sho
 			@Override
 			public void handle(DragEvent de) {
 				if (de.getGestureSource() != imageView && de.getDragboard().hasString()) {
-					Transfer transfer = new Transfer(de.getDragboard().getString());
+					TransferedStack transfer = new TransferedStack(de.getDragboard().getString());
 					if (GameModel.instance().isLegalMove(transfer.getTop(), index)) {
 						de.acceptTransferModes(TransferMode.MOVE);
 					}
@@ -103,7 +103,7 @@ public class TableView extends StackPane implements GameModelListenable { // Sho
 		return new EventHandler<DragEvent>() {
 			@Override
 			public void handle(DragEvent de) {
-				Transfer transfer = new Transfer(de.getDragboard().getString());
+				TransferedStack transfer = new TransferedStack(de.getDragboard().getString());
 				if (GameModel.instance().isLegalMove(transfer.getTop(), index)) {
 					imageView.setEffect(new DropShadow());
 				}
@@ -134,7 +134,7 @@ public class TableView extends StackPane implements GameModelListenable { // Sho
 				Dragboard db = de.getDragboard();
 				boolean success = false;
 				if (db.hasString()) {
-					GameModel.instance().getCardMove(new Transfer(db.getString()).getTop(), index).perform();
+					GameModel.instance().getCardMove(new TransferedStack(db.getString()).getTop(), index).perform();
 					success = true;
 				}
 				de.setDropCompleted(success);
