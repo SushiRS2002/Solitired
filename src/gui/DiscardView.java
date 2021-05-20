@@ -9,8 +9,8 @@ import layout.GameModel;
 import layout.GameModelListenable;
 
 public class DiscardView extends HBox implements GameModelListenable { // Allows dragging cards from the discard pile.
-	private static final int PADDING = 5;
-	private DragHandler dh;
+	private static final int PADDING = 5; // Discard pile's padding.
+	private DragHandler dh; // Drag handler for cards in the discard pile.
 
 	public DiscardView() { // DiscardView's constructor.
 		setPadding(new Insets(PADDING));
