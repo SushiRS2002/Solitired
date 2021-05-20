@@ -21,12 +21,12 @@ public final class GameModel implements GameModelViewable {
 
 	private static Movable nullMove = new Movable() { // A null move.
 		@Override
-		public void perform() {
+		public void perform() { // Performs a move.
 
 		}
 
 		@Override
-		public boolean isNull() {
+		public boolean isNull() { // True since this is a null move.
 			return true;
 		}
 	};
@@ -213,14 +213,14 @@ public final class GameModel implements GameModelViewable {
 		private Locatable origin;
 		private Locatable destination;
 
-		public CardMove(Card card, Locatable destination) {
+		public CardMove(Card card, Locatable destination) { // CardMove's constructor.
 			this.card = card;
 			this.destination = destination;
 			origin = find(card);
 		}
 
 		@Override
-		public void perform() {
+		public void perform() { // Performs a move.
 			assert isLegalMove(card, destination);
 			move(card, destination);
 			moves.push(this);
@@ -231,16 +231,15 @@ public final class GameModel implements GameModelViewable {
 	public class RevealTopMove implements Movable { // Reveals the top of the stack.
 		private final Table index;
 
-		public RevealTopMove(Table index) {
+		public RevealTopMove(Table index) { // RevealTopMove's constructor.
 			this.index = index;
 		}
 
 		@Override
-		public void perform() {
+		public void perform() { // Performs a move.
 			tables.showTop(index);
 			moves.push(this);
 			notifyListeners();
 		}
-
 	}
 }
