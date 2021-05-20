@@ -20,7 +20,7 @@ public class DeckView extends HBox implements GameModelListenable { // Allows to
 	private static final String BUTTON_STYLE_NORMAL = "-fx-background-color: transparent; -fx-padding: 5, 5, 5, 5;";
 	private static final String BUTTON_STYLE_PRESSED = "-fx-background-color: transparent; -fx-padding: 6 4 4 6;";
 	private static final int IMAGE_NEW_LINE_WIDTH = 10;
-	private static final int IMAGE_FONT_SIZE = 22;
+	private static final int IMAGE_FONT_SIZE = 20;
 
 	public DeckView() { // DeckView's constructor.
 		final Button button = new Button();
@@ -58,16 +58,16 @@ public class DeckView extends HBox implements GameModelListenable { // Allows to
 		context.setFill(Color.DARKKHAKI);
 		context.setFont(Font.font(Font.getDefault().getName(), IMAGE_FONT_SIZE));
 		if (GameModel.instance().isCompleted()) {
-			context.fillText("You won!", Math.round(width / 2), IMAGE_FONT_SIZE);
+			context.fillText("You won!\nNew Game?", Math.round(width / 2), IMAGE_FONT_SIZE);
 		} else {
-			context.fillText("Give up?", Math.round(width / 2), IMAGE_FONT_SIZE);
+			context.fillText("Give up?\nRestart?", Math.round(width / 2), IMAGE_FONT_SIZE);
 		}
 		context.setTextAlign(TextAlignment.CENTER);
 		return canvas;
 	}
 
 	@Override
-	public void gameStateChanged() {
+	public void gameStateChanged() { // Check the game state of the deck.
 		if (GameModel.instance().isDeckEmpty()) {
 			((Button) getChildren().get(0)).setGraphic(createNewGameImage());
 		} else {
@@ -75,7 +75,7 @@ public class DeckView extends HBox implements GameModelListenable { // Allows to
 		}
 	}
 
-	public void reset() {
+	public void reset() { // Reset the deck when called.
 		getChildren().get(0).setVisible(true);
 	}
 }
