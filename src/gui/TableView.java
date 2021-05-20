@@ -19,7 +19,7 @@ import layout.GameModel;
 import layout.GameModelListenable;
 import layout.Table;
 
-public class TableView extends StackPane implements GameModelListenable { // Shows a stack of cards.
+public class TableView extends StackPane implements GameModelListenable { // Shows table piles.
 	private static final int PADDING = 5; // Table pile's padding.
 	private static final int Y_OFFSET = 33; // Offset between each cards in table pile.
 	private static final ClipboardContent CLIPBOARDCONTENT = new ClipboardContent(); // Clipboard for CP operations.
