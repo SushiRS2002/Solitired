@@ -3,11 +3,11 @@ package gui;
 import card.Card;
 import card.CardStacks;
 
-public class Transfer { // The transfer of cards.
-	private static final String SEPARATOR = ";";
-	private Card[] cards;
+public class TransferedStack { // The transfer of cards.
+	private static final String SEPARATOR = "|"; // Separator for each transfered cards.
+	private Card[] cards; // List of transfered cards.
 
-	public Transfer(String str) { // Transfer's constructor.
+	public TransferedStack(String str) { // TransferedStack's constructor.
 		assert str != null && str.length() > 0;
 		String[] tokens = str.split(SEPARATOR);
 		cards = new Card[tokens.length];
