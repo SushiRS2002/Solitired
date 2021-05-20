@@ -51,7 +51,7 @@ public class CardStacks implements Iterable<Card> {
 	}
 
 	@Override
-	public Iterator<Card> iterator() {
+	public Iterator<Card> iterator() { // Iterator for accessing collections.
 		return CARDSLIST.iterator();
 	}
 }
