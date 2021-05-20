@@ -4,7 +4,7 @@ import card.Card;
 import card.CardStacks;
 
 public class TransferedStack { // The transfer of cards.
-	private static final String SEPARATOR = "|"; // Separator for each transfered cards.
+	private static final String SEPARATOR = ";"; // Separator for each transfered cards.
 	private Card[] cards; // List of transfered cards.
 
 	public TransferedStack(String str) { // TransferedStack's constructor.
