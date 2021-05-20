@@ -163,8 +163,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="19" language="java" name="gui.SuitPile" project="Solitired" file="/Solitired/src/gui/SuitPile.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
+  <class id="19" language="java" name="gui.FoundationView" project="Solitired" 
+    file="/Solitired/src/gui/FoundationView.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1168" y="1197"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -190,8 +190,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="22" language="java" name="gui.Main" project="Solitired" file="/Solitired/src/gui/Main.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
+  <class id="22" language="java" name="gui.SolitiredGame" project="Solitired" 
+    file="/Solitired/src/gui/SolitiredGame.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1500" y="998"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -199,8 +199,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="23" language="java" name="gui.Transfer" project="Solitired" file="/Solitired/src/gui/Transfer.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
+  <class id="23" language="java" name="gui.TransferedStack" project="Solitired" 
+    file="/Solitired/src/gui/TransferedStack.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1488" y="1257"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -208,7 +208,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="24" language="java" name="gui.PileView" project="Solitired" file="/Solitired/src/gui/PileView.java" 
+  <class id="24" language="java" name="gui.TableView" project="Solitired" file="/Solitired/src/gui/TableView.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="386" y="1214"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -236,57 +236,57 @@
     </display>  
   </class>  
   <realization id="27">    
-    <end type="SOURCE" refId="24"/>    
-    <end type="TARGET" refId="8"/>  
-  </realization>  
-  <realization id="28">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="9"/>  
-  </realization>  
-  <realization id="29">    
-    <end type="SOURCE" refId="26"/>    
-    <end type="TARGET" refId="16"/>  
-  </realization>  
-  <realization id="30">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="9"/>  
-  </realization>  
-  <realization id="31">    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="17"/>  
-  </realization>  
-  <realization id="32">    
     <end type="SOURCE" refId="19"/>    
     <end type="TARGET" refId="8"/>  
   </realization>  
-  <realization id="33">    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="17"/>  
-  </realization>  
-  <realization id="34">    
-    <end type="SOURCE" refId="18"/>    
-    <end type="TARGET" refId="17"/>  
-  </realization>  
-  <nesting id="35">    
-    <end type="SOURCE" refId="26"/>    
-    <end type="TARGET" refId="11"/>  
-  </nesting>  
-  <realization id="36">    
-    <end type="SOURCE" refId="25"/>    
-    <end type="TARGET" refId="8"/>  
-  </realization>  
-  <nesting id="37">    
-    <end type="SOURCE" refId="26"/>    
-    <end type="TARGET" refId="15"/>  
-  </nesting>  
-  <realization id="38">    
-    <end type="SOURCE" refId="15"/>    
-    <end type="TARGET" refId="9"/>  
-  </realization>  
-  <realization id="39">    
+  <realization id="28">    
     <end type="SOURCE" refId="21"/>    
     <end type="TARGET" refId="8"/>  
   </realization>  
+  <realization id="29">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="9"/>  
+  </realization>  
+  <realization id="30">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="17"/>  
+  </realization>  
+  <realization id="31">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="8"/>  
+  </realization>  
+  <nesting id="32">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="15"/>  
+  </nesting>  
+  <realization id="33">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="17"/>  
+  </realization>  
+  <realization id="34">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="8"/>  
+  </realization>  
+  <realization id="35">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="9"/>  
+  </realization>  
+  <realization id="36">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="17"/>  
+  </realization>  
+  <realization id="37">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="9"/>  
+  </realization>  
+  <realization id="38">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="16"/>  
+  </realization>  
+  <nesting id="39">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="11"/>  
+  </nesting>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

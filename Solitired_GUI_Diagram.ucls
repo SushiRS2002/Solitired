@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.4" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
   realizations="true" associations="false" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="gui.SuitPile" project="Solitired" file="/Solitired/src/gui/SuitPile.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
+  <class id="1" language="java" name="gui.FoundationView" project="Solitired" 
+    file="/Solitired/src/gui/FoundationView.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="234" y="230"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -28,8 +28,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="gui.Main" project="Solitired" file="/Solitired/src/gui/Main.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
+  <class id="4" language="java" name="gui.SolitiredGame" project="Solitired" 
+    file="/Solitired/src/gui/SolitiredGame.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1108" y="733"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -37,8 +37,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="gui.Transfer" project="Solitired" file="/Solitired/src/gui/Transfer.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
+  <class id="5" language="java" name="gui.TransferedStack" project="Solitired" 
+    file="/Solitired/src/gui/TransferedStack.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="784" y="782"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -46,7 +46,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="gui.PileView" project="Solitired" file="/Solitired/src/gui/PileView.java" 
+  <class id="6" language="java" name="gui.TableView" project="Solitired" file="/Solitired/src/gui/TableView.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="930" y="243"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -74,7 +74,7 @@
     </display>  
   </interface>  
   <realization id="9">    
-    <end type="SOURCE" refId="1"/>    
+    <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="8"/>  
   </realization>  
   <realization id="10">    
@@ -86,7 +86,7 @@
     <end type="TARGET" refId="8"/>  
   </realization>  
   <realization id="12">    
-    <end type="SOURCE" refId="3"/>    
+    <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="8"/>  
   </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
