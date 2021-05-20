@@ -57,7 +57,7 @@ public class FoundationView extends StackPane implements GameModelListenable { /
 			@Override
 			public void handle(DragEvent de) {
 				if (de.getGestureSource() != image && de.getDragboard().hasString()) {
-					Transfer transfer = new Transfer(de.getDragboard().getString());
+					TransferedStack transfer = new TransferedStack(de.getDragboard().getString());
 					if (transfer.size() == 1 && GameModel.instance().isLegalMove(transfer.getTop(), index)) {
 						de.acceptTransferModes(TransferMode.MOVE);
 					}
@@ -72,7 +72,7 @@ public class FoundationView extends StackPane implements GameModelListenable { /
 		return new EventHandler<DragEvent>() {
 			@Override
 			public void handle(DragEvent de) {
-				Transfer transfer = new Transfer(de.getDragboard().getString());
+				TransferedStack transfer = new TransferedStack(de.getDragboard().getString());
 				if (transfer.size() == 1 && GameModel.instance().isLegalMove(transfer.getTop(), index)) {
 					setStyle(BORDER_STYLE_DRAGGED);
 				}
@@ -100,7 +100,7 @@ public class FoundationView extends StackPane implements GameModelListenable { /
 				Dragboard db = de.getDragboard();
 				boolean success = false;
 				if (db.hasString()) {
-					Transfer transfer = new Transfer(de.getDragboard().getString());
+					TransferedStack transfer = new TransferedStack(de.getDragboard().getString());
 					GameModel.instance().getCardMove(transfer.getTop(), index).perform();
 					success = true;
 				}
