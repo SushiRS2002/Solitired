@@ -16,8 +16,8 @@ public class SolitiredGame extends Application { // Launches the application.
 	private static final String TITLE = "Solitired"; // Application's title.
 	private DeckView deckView = new DeckView(); // Initializing the deck.
 	private DiscardView discardView = new DiscardView(); // Initializing the discard pile.
-	private FoundationView[] suitPile = new FoundationView[Suit.values().length]; // Initializing the foundation piles.
-	private TableView[] pileView = new TableView[Table.values().length]; // Initializing the table piles.
+	private FoundationView[] foundationView = new FoundationView[Suit.values().length]; // Initializing the foundation piles.
+	private TableView[] tableView = new TableView[Table.values().length]; // Initializing the table piles.
 
 	public SolitiredGame() { // Default constructor.
 
@@ -38,12 +38,12 @@ public class SolitiredGame extends Application { // Launches the application.
 		root.add(deckView, 0, 0);
 		root.add(discardView, 1, 0);
 		for (Foundation index : Foundation.values()) {
-			suitPile[index.ordinal()] = new FoundationView(index);
-			root.add(suitPile[index.ordinal()], 3 + index.ordinal(), 0);
+			foundationView[index.ordinal()] = new FoundationView(index);
+			root.add(foundationView[index.ordinal()], 3 + index.ordinal(), 0);
 		}
 		for (Table index : Table.values()) {
-			pileView[index.ordinal()] = new TableView(index);
-			root.add(pileView[index.ordinal()], index.ordinal(), 1);
+			tableView[index.ordinal()] = new TableView(index);
+			root.add(tableView[index.ordinal()], index.ordinal(), 1);
 		}
 		primaryStage.setResizable(true);
 		primaryStage.setScene(new Scene(root, WIDTH, HEIGHT));
